@@ -26,3 +26,31 @@
   margin-left: 71%;
   margin-top: 15vh;
 }
+.image{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.image img{
+margin: 10px;
+box-shadow: 2px 12px 20px rgba(92, 82, 82, 0.61);
+}
+.image a :hover{
+margin-top:1px ;
+opacity: 70%;
+}
+.titre{
+color: rgb(180, 93, 31);
+}
+p{
+  font-family: Arial, Helvetica, sans-serif;
+}
+.dec{
+ background-color: rgba(233, 182, 146, 0.5);
+ border-radius: 20px;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
