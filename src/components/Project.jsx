@@ -1,5 +1,14 @@
 import { ExternalLink } from "lucide-react";
+import javaIcon from "../assets/stack/java.png";
 import githubIcon from "../assets/stack/github.png";
+import postgresqlIcon from "../assets/stack/postgresql.png";
+import springIcon from "../assets/stack/spring.png";
+
+const stackIcons = {
+  Java: javaIcon,
+  "Spring Boot": springIcon,
+  PostgreSQL: postgresqlIcon,
+};
 
 const projects = [
   {
@@ -43,22 +52,25 @@ function ProjectCard({ project }) {
       )}
 
       {/* nom toujours visible */}
-      <span className="absolute bottom-3 left-3 z-10 text-brown text-sm font-medium bg-cream/90 px-3 py-1 rounded-lg">
+      <span className="absolute bottom-3 left-3 text-brown text-sm font-semibold tracking-wide bg-cream/95 px-5 py-2.5 rounded-lg">
         {project.name}
       </span>
 
       {/* quart de cercle qui grossit depuis le coin bas-gauche */}
       <div
-        className="absolute inset-0 flex flex-col justify-end p-4 bg-paper
+        className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-paper text-center
                    transition-[clip-path] duration-500 ease-out
                    [clip-path:circle(0%_at_0%_100%)]
                    group-hover:[clip-path:circle(150%_at_0%_100%)]"
       >
-        <p className="text-brown font-medium mb-1">{project.name}</p>
-        <p className="text-brown/80 text-sm mb-3">{project.description}</p>
-        <div className="flex flex-wrap gap-1.5 mb-3">
+        <p className="text-brown font-medium mb-2">{project.name}</p>
+        <p className="text-brown/80 text-sm mb-4 max-w-md">{project.description}</p>
+        <div className="flex flex-wrap justify-center gap-2 mb-5">
           {project.stack.map((s) => (
-            <span key={s} className="text-xs bg-brown/10 text-brown px-2 py-0.5 rounded-lg">
+            <span key={s} className="inline-flex items-center gap-1.5 text-xs bg-brown/10 text-brown px-2 py-1 rounded-lg">
+              {stackIcons[s] ? (
+                <img src={stackIcons[s]} alt="" className="w-4 h-4 object-contain" />
+              ) : null}
               {s}
             </span>
           ))}
@@ -67,12 +79,12 @@ function ProjectCard({ project }) {
           href={project.url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 self-start text-sm font-medium bg-brown text-cream px-5 py-2.5 rounded-lg hover:opacity-90 transition"
+          className="inline-flex items-center gap-1.5 border-2 border-brown text-brown text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-brown hover:text-cream transition"
         >
           {project.type === "deployed" ? (
             <><ExternalLink size={14} /> Voir le site</>
           ) : (
-            <><img src={githubIcon} alt="" className="w-3.5 h-3.5" /> Voir sur GitHub</>
+            <><img src={githubIcon} alt="" className="w-5 h-5 object-contain" /> Voir sur GitHub</>
           )}
         </a>
       </div>
