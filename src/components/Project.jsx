@@ -1,50 +1,67 @@
 import { ExternalLink } from "lucide-react";
+import dockerIcon from "../assets/stack/docker.png";
+import fastapiIcon from "../assets/stack/fastapi.png";
 import javaIcon from "../assets/stack/java.png";
 import githubIcon from "../assets/stack/github.png";
 import postgresqlIcon from "../assets/stack/postgresql.png";
+import pythonIcon from "../assets/stack/python.png";
+import reactIcon from "../assets/stack/react.png";
 import springIcon from "../assets/stack/spring.png";
+import tailwindIcon from "../assets/stack/tailwind.png";
+import keyraImage from "../assets/keyra1.png";
+import heiImage from "../assets/hei.png";
+import pkiImage from "../assets/pki.png";
 
 const stackIcons = {
+  Python: pythonIcon,
+  FastAPI: fastapiIcon,
+  PostgreSQL: postgresqlIcon,
+  Docker: dockerIcon,
+  React: reactIcon,
+  "Tailwind CSS": tailwindIcon,
   Java: javaIcon,
   "Spring Boot": springIcon,
-  PostgreSQL: postgresqlIcon,
 };
 
 const projects = [
   {
-    name: "manage-employee",
-    description: "API REST de gestion d'employés — CRUD complet avec authentification.",
-    stack: ["Java", "Spring Boot", "PostgreSQL"],
-    image: null,
+    name: "Keyra",
+    description: "Plateforme d'authentification-as-a-service multi-tenant : API backend et dashboard développeur avec gestion des applications, clés API et utilisateurs finaux isolés par application.",
+    stack: ["Python", "FastAPI", "PostgreSQL", "Docker", "React", "Tailwind CSS"],
+    image: keyraImage,
     type: "deployed",
-    url: "https://github.com/mirado447/manage-employee",
+    url: "https://keyra-dashboard.vercel.app/",
     size: "large",
   },
   {
-    name: "PKI5-ca-server",
-    description: "PKI complète : autorité de certification + serveur TLS.",
-    stack: ["OpenSSL", "PKI", "Java"],
-    image: null,
+    name: "PKI-CA-Server",
+    description: "Mise en place d'une PKI complète avec OpenSSL : génération de clés, création et signature de certificats, vérification et export au format PKCS#12.",
+    stack: ["OpenSSL", "RSA", "X.509", "PKCS#12", "SCP"],
+    image: pkiImage,
     type: "git",
     url: "https://github.com/mirado447/PKI5-ca-server",
     size: "small",
   },
   {
-    name: "blogify-api",
-    description: "API de blog en groupe — posts, commentaires, catégories.",
-    stack: ["Spring Boot", "REST", "Tests"],
-    image: null,
+    name: "HEI Admin API",
+    description: "Contribution backend en équipe sur une API de gestion d'école : frais scolaires, notifications de paiement et mise à jour automatisée du statut étudiant.",
+    stack: ["Java", "Spring Boot", "Scheduler (cron job)", "API RESTful (OpenAPI 3)"],
+    image: heiImage,
     type: "git",
-    url: "https://github.com/mirado447/blogify-api",
+    url: "https://github.com/hei-school/hei-admin-api/commits/preprod/?author=mirado447",
     size: "small",
   },
 ];
 
 function ProjectCard({ project }) {
   return (
-    <div className="group relative rounded-2xl overflow-hidden bg-tan/20 h-full min-h-[180px]">
+    <div className={`group relative rounded-2xl overflow-hidden h-full min-h-[180px] ${project.size === "small" ? "bg-tan" : "bg-tan/20"}`}>
       {project.image ? (
-        <img src={project.image} alt={project.name} className="w-full h-full object-cover" />
+        <img
+          src={project.image}
+          alt={project.name}
+          className={`w-full h-full object-contain ${project.size === "small" ? "bg-tan" : "bg-[#180800]"}`}
+        />
       ) : (
         <div className="w-full h-full flex items-center justify-center text-brown/40 text-sm">
           image du projet
@@ -64,7 +81,7 @@ function ProjectCard({ project }) {
                    group-hover:[clip-path:circle(150%_at_0%_100%)]"
       >
         <p className="text-brown font-medium mb-2">{project.name}</p>
-        <p className="text-brown/80 text-sm mb-4 max-w-md">{project.description}</p>
+        <p className="w-full max-w-xl text-brown/80 text-sm mb-4">{project.description}</p>
         <div className="flex flex-wrap justify-center gap-2 mb-5">
           {project.stack.map((s) => (
             <span key={s} className="inline-flex items-center gap-1.5 text-xs bg-brown/10 text-brown px-2 py-1 rounded-lg">
@@ -97,10 +114,10 @@ function Project() {
   const smalls = projects.filter((p) => p.size === "small");
 
   return (
-    <section id="project" className="px-6 md:px-20 py-16">
+    <section id="project" className="px-6 md:px-20 pt-4 pb-16">
       <h2 className="font-khand text-4xl font-normal text-brown mb-2 text-center">Project</h2>
       <p className="text-brown/70 text-center mb-8">
-        Quelques projets qui illustrent mon parcours full-stack.
+        Une sélection de projets et d'API que j'ai développés, allant de plateformes complètes à des services back-end.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:h-[420px]">
