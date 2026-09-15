@@ -2,7 +2,7 @@ import me from "../assets/me.png";
 
 function Hero() {
   return (
-    <section className="px-6 md:px-20 pt-24 pb-20 flex flex-col md:flex-row items-center justify-between gap-10">
+    <section className="px-6 md:px-32 pt-24 pb-20 flex flex-col md:flex-row items-center justify-between gap-10">
       <div className="text-center md:text-left">
         <h1 className="font-khand font-semibold leading-tight text-brown mb-4">
           <span className="block whitespace-nowrap text-2xl sm:text-3xl md:text-4xl">
@@ -12,9 +12,9 @@ function Hero() {
             Développeur full-stack
           </span>
         </h1>
-        <p className="text-brown text-base md:text-lg mb-8 max-w-md">
-          Je construis des applications sécurisées, du back-end à l'interface —
-          actuellement en M1 Cybersécurité.
+        <p className="w-full text-brown text-base md:text-lg mb-8">
+          Développeur full-stack passionné par la construction d'applications robustes,
+          avec une attention particulière portée à la sécurité — actuellement en M1 Infrastructures et Cybersécurité.
         </p>
 
         <a
