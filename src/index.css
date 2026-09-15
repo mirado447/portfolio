@@ -8,6 +8,20 @@
   --color-paper: #e6ccb2;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 @layer base {
   body {
     background-color: var(--color-cream);
