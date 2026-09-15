@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+  --color-cream: #ede0d4;
+  --color-brown: #7f5539;
+  --color-tan: #ddb892;
+  --color-brown-dark: #9e5d3a;
+  --color-paper: #e6ccb2;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-cream);
+  }
+}
