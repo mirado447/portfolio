@@ -31,15 +31,16 @@ function Stack() {
     <section id="stack" className="py-10">
       <h2 className="text-2xl font-bold text-brown mb-6 text-center">Stack</h2>
       <div className="bg-tan py-3">
-        <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-6 px-6">
+        <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-12 items-center gap-y-4 px-6">
           {stack.map((item) => (
-            <img
-              key={item.name}
-              src={item.icon}
-              alt={item.name}
-              title={item.name}
-              className="w-12 h-12 object-contain"
-            />
+            <div key={item.name} className="flex justify-center">
+              <img
+                src={item.icon}
+                alt={item.name}
+                title={item.name}
+                className="w-12 h-12 object-contain"
+              />
+            </div>
           ))}
         </div>
       </div>
