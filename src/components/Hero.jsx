@@ -2,7 +2,7 @@ import me from "../assets/me.png";
 
 function Hero() {
   return (
-    <section className="px-6 md:px-32 pt-24 pb-20 flex flex-col md:flex-row items-center justify-between gap-10">
+    <section className="px-6 md:px-32 pt-24 pb-20 md:py-24 md:min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-between gap-10">
       <div className="text-center md:text-left">
         <h1 className="font-khand font-semibold leading-tight text-brown mb-4">
           <span className="block whitespace-nowrap text-2xl sm:text-3xl md:text-4xl">
