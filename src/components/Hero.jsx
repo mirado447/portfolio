@@ -2,7 +2,7 @@ import me from "../assets/me.png";
 
 function Hero() {
   return (
-    <section className="px-6 md:px-20 pt-8 pb-20 flex flex-col md:flex-row items-center justify-between gap-10">
+    <section className="px-6 md:px-20 pt-24 pb-20 flex flex-col md:flex-row items-center justify-between gap-10">
       <div className="text-center md:text-left">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-brown mb-4">
           Mirado — Développeur full-stack
