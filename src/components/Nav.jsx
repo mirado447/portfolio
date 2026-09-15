@@ -28,7 +28,7 @@ function Nav() {
       <a
         href="/cv-mirado.pdf"
         download
-        className="bg-tan text-brown text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 transition"
+        className="bg-tan text-brown text-sm font-medium px-5 py-2.5 rounded-lg hover:opacity-90 transition"
       >
         Télécharger mon CV
       </a>

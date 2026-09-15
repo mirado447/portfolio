@@ -67,7 +67,7 @@ function ProjectCard({ project }) {
           href={project.url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 self-start text-sm font-medium bg-brown text-cream px-4 py-2 rounded-lg hover:opacity-90 transition"
+          className="inline-flex items-center gap-1.5 self-start text-sm font-medium bg-brown text-cream px-5 py-2.5 rounded-lg hover:opacity-90 transition"
         >
           {project.type === "deployed" ? (
             <><ExternalLink size={14} /> Voir le site</>

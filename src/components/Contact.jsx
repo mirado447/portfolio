@@ -54,7 +54,7 @@ function Contact() {
             <Field label="Message" textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
             <button
               type="submit"
-              className="inline-flex items-center gap-2 bg-tan text-brown text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 transition"
+              className="inline-flex items-center gap-2 bg-tan text-brown text-sm font-medium px-5 py-2.5 rounded-lg hover:opacity-90 transition"
             >
               <Send size={16} /> Envoyer
             </button>
