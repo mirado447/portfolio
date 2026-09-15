@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Send, Check } from "lucide-react";
+import lettre from "../assets/lettre.png";
 
 function Field({ label, type = "text", value, onChange, textarea }) {
   const Tag = textarea ? "textarea" : "input";
@@ -45,6 +46,7 @@ function Contact() {
           <p className="text-brown/70 leading-relaxed">
             Je suis actuellement à la recherche d'une alternance en développement web ou cybersécurité et je réponds rapidement aux messages.
           </p>
+          <img src={lettre} alt="Illustration d'une lettre" className="letter-hover w-full max-w-56 mx-auto mt-6" />
         </div>
 
         {sent ? (

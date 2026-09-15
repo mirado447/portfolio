@@ -29,3 +29,22 @@ html {
     background-color: var(--color-cream);
   }
 }
+
+@keyframes letter-sway {
+  0%, 100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+.letter-hover:hover {
+  animation: letter-sway 0.35s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter-hover:hover {
+    animation: none;
+  }
+}
