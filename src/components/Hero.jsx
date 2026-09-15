@@ -4,8 +4,13 @@ function Hero() {
   return (
     <section className="px-6 md:px-20 pt-24 pb-20 flex flex-col md:flex-row items-center justify-between gap-10">
       <div className="text-center md:text-left">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-brown mb-4">
-          Mirado — Développeur full-stack
+        <h1 className="font-khand font-semibold leading-tight text-brown mb-4">
+          <span className="block whitespace-nowrap text-2xl sm:text-3xl md:text-4xl">
+            Mirado Radintsoa RAHARINAIVOSOA
+          </span>
+          <span className="block text-5xl sm:text-6xl md:text-7xl">
+            Développeur full-stack
+          </span>
         </h1>
         <p className="text-brown text-base md:text-lg mb-8 max-w-md">
           Je construis des applications sécurisées, du back-end à l'interface —

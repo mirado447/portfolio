@@ -98,7 +98,7 @@ function Project() {
 
   return (
     <section id="project" className="px-6 md:px-20 py-16">
-      <h2 className="text-2xl font-bold text-brown mb-2 text-center">Project</h2>
+      <h2 className="font-khand text-4xl font-normal text-brown mb-2 text-center">Project</h2>
       <p className="text-brown/70 text-center mb-8">
         Quelques projets qui illustrent mon parcours full-stack.
       </p>

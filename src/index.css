@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Khand:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -6,6 +7,7 @@
   --color-tan: #ddb892;
   --color-brown-dark: #9e5d3a;
   --color-paper: #e6ccb2;
+  --font-khand: "Khand", sans-serif;
 }
 
 html {
