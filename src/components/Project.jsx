@@ -60,7 +60,7 @@ function ProjectCard({ project }) {
         <img
           src={project.image}
           alt={project.name}
-          className={`w-full h-full object-contain ${project.size === "small" ? "bg-tan" : "bg-[#180800]"}`}
+          className={`w-full h-full object-contain bg-tan`}
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center text-brown/40 text-sm">

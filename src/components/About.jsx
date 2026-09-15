@@ -132,7 +132,7 @@ function About() {
   const lines = document.content.split("\n");
 
   return (
-    <section id="about" className="px-6 md:px-20 py-16">
+    <section id="about" className="px-6 md:px-20 pt-4 pb-16">
       <h2 className="font-khand text-4xl font-normal text-brown mb-6 text-center">About</h2>
 
       <div className="rounded-2xl overflow-hidden bg-paper">
