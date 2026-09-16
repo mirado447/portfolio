@@ -29,14 +29,51 @@ function Field({ label, type = "text", value, onChange, textarea }) {
 function Contact() {
   const [form, setForm] = useState({ email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validateForm = () => {
+    const trimmedEmail = form.email.trim();
+    const trimmedSubject = form.subject.trim();
+    const trimmedMessage = form.message.trim();
+
+    if (!trimmedEmail || !trimmedSubject || !trimmedMessage) {
+      return "Veuillez remplir tous les champs.";
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(trimmedEmail)) {
+      return "Veuillez entrer une adresse email valide.";
+    }
+
+    if (trimmedSubject.length < 3) {
+      return "L'objet doit contenir au moins 3 caractères.";
+    }
+
+    if (trimmedMessage.length < 10) {
+      return "Le message doit contenir au moins 10 caractères.";
+    }
+
+    return "";
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      setSent(false);
+      return;
+    }
+
+    setError("");
+    setIsSubmitting(true);
+
     const formData = new FormData();
-    formData.append("email", form.email);
-    formData.append("subject", form.subject);
-    formData.append("message", form.message);
+    formData.append("email", form.email.trim());
+    formData.append("subject", form.subject.trim());
+    formData.append("message", form.message.trim());
 
     try {
       const response = await fetch("https://formsubmit.co/ajax/miradorah@gmail.com", {
@@ -54,7 +91,10 @@ function Contact() {
       setSent(true);
       setForm({ email: "", subject: "", message: "" });
     } catch (error) {
-      alert("Erreur lors de l'envoi du message. Veuillez réessayer.");
+      setSent(false);
+      setError("Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -161,11 +201,20 @@ function Contact() {
             <Field label="Email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             <Field label="Objet" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} />
             <Field label="Message" textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
+
+            {error ? (
+              <p className="text-sm text-red-700 bg-red-100 border border-red-200 rounded-lg px-3 py-2">
+                {error}
+              </p>
+            ) : null}
+
             <button
               type="submit"
-              className="inline-flex items-center gap-2 bg-tan text-brown text-sm font-medium px-5 py-2.5 rounded-lg hover:opacity-90 transition"
+              disabled={isSubmitting}
+              className="inline-flex items-center gap-2 bg-tan text-brown text-sm font-medium px-5 py-2.5 rounded-lg hover:opacity-90 transition disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              <Send size={16} /> Envoyer
+              <Send size={16} />
+              {isSubmitting ? "Envoi..." : "Envoyer"}
             </button>
           </form>
         )}
