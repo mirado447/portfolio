@@ -30,9 +30,32 @@ function Contact() {
   const [form, setForm] = useState({ email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSent(true);
+
+    const formData = new FormData();
+    formData.append("email", form.email);
+    formData.append("subject", form.subject);
+    formData.append("message", form.message);
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/miradorah@gmail.com", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de l'envoi");
+      }
+
+      setSent(true);
+      setForm({ email: "", subject: "", message: "" });
+    } catch (error) {
+      alert("Erreur lors de l'envoi du message. Veuillez réessayer.");
+    }
   };
 
   const contactCards = [
