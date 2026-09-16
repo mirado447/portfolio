@@ -1,33 +1,14 @@
 import { useState } from "react";
 import { Send, Check } from "lucide-react";
 import lettre from "../assets/lettre.png";
-import emailIcon from "../assets/email.png";
-import phoneIcon from "../assets/phone.png";
-import linkedInIcon from "../assets/In.png";
-import githubIcon from "../assets/stack/github.png";
+import ContactCard from "./contact/ContactCard";
+import ContactField from "./contact/ContactField";
+import contactCards from "./contact/contactData";
 
-function Field({ label, type = "text", value, onChange, textarea }) {
-  const Tag = textarea ? "textarea" : "input";
-  return (
-    <div className="relative bg-cream rounded-lg">
-      <Tag
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder=" "
-        rows={textarea ? 4 : undefined}
-        required
-        className="peer w-full bg-transparent border-2 border-tan focus:border-brown rounded-lg px-4 pt-6 pb-2 text-brown outline-none transition resize-none"
-      />
-      <label className="absolute left-4 top-2 text-brown/50 text-xs transition-all pointer-events-none peer-focus:text-brown">
-        {label}
-      </label>
-    </div>
-  );
-}
+const initialForm = { email: "", subject: "", message: "" };
 
 function Contact() {
-  const [form, setForm] = useState({ email: "", subject: "", message: "" });
+  const [form, setForm] = useState(initialForm);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,8 +22,7 @@ function Contact() {
       return "Veuillez remplir tous les champs.";
     }
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(trimmedEmail)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
       return "Veuillez entrer une adresse email valide.";
     }
 
@@ -57,8 +37,8 @@ function Contact() {
     return "";
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     const validationError = validateForm();
     if (validationError) {
@@ -79,9 +59,7 @@ function Contact() {
       const response = await fetch("https://formsubmit.co/ajax/miradorah@gmail.com", {
         method: "POST",
         body: formData,
-        headers: {
-          Accept: "application/json",
-        },
+        headers: { Accept: "application/json" },
       });
 
       if (!response.ok) {
@@ -89,8 +67,8 @@ function Contact() {
       }
 
       setSent(true);
-      setForm({ email: "", subject: "", message: "" });
-    } catch (error) {
+      setForm(initialForm);
+    } catch {
       setSent(false);
       setError("Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
     } finally {
@@ -98,36 +76,9 @@ function Contact() {
     }
   };
 
-  const contactCards = [
-    {
-      label: "Email",
-      value: "miradorah@gmail.com",
-      href: "mailto:miradorah@gmail.com",
-      icon: emailIcon,
-      external: false,
-    },
-    {
-      label: "Téléphone",
-      value: "+261 34 88 809 82",
-      href: "tel:+261348880982",
-      icon: phoneIcon,
-      external: false,
-    },
-    {
-      label: "GitHub",
-      value: "mirado447",
-      href: "https://github.com/mirado447",
-      icon: githubIcon,
-      external: true,
-    },
-    {
-      label: "LinkedIn",
-      value: "Mirado Radintsoa",
-      href: "https://www.linkedin.com/in/mirado-radintsoa-raharinaivosoa-b21283266/",
-      icon: linkedInIcon,
-      external: true,
-    },
-  ];
+  const updateField = (field) => (event) => {
+    setForm((currentForm) => ({ ...currentForm, [field]: event.target.value }));
+  };
 
   return (
     <section id="contact" className="px-6 md:px-20 pt-8 pb-20 scroll-mt-16">
@@ -137,51 +88,14 @@ function Contact() {
       </div>
 
       <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-3 mt-8 mb-12">
-        {contactCards.map(({ label, value, href, icon, external }) => {
-          const content = (
-            <>
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ddb892] text-brown overflow-hidden">
-                  <img src={icon} alt={label} className="h-6 w-6 object-contain" />
-                </div>
-                <div className="min-w-0 select-text">
-                  <p className="text-[10px] uppercase tracking-[0.18em] text-brown/60">{label}</p>
-                  <p className="mt-0.5 text-sm font-medium text-brown break-words">{value}</p>
-                </div>
-              </div>
-            </>
-          );
-
-          if (external) {
-            return (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                className="group block rounded-xl border border-brown/15 bg-white/40 p-3 transition hover:-translate-y-0.5"
-              >
-                {content}
-              </a>
-            );
-          }
-
-          return (
-            <div
-              key={label}
-              className="block rounded-xl border border-brown/15 bg-white/40 p-3 transition"
-            >
-              {content}
-            </div>
-          );
-        })}
+        {contactCards.map((contact) => (
+          <ContactCard key={contact.label} contact={contact} />
+        ))}
       </div>
 
       <div className="grid md:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-16 items-start">
         <div className="pt-2">
-          <p className="text-brown text-xl font-semibold mb-3">
-            Parlons de ton prochain projet.
-          </p>
+          <p className="text-brown text-xl font-semibold mb-3">Parlons de ton prochain projet.</p>
           <p className="text-brown/70 leading-relaxed">
             Actuellement à la recherche d'une alternance en développement et sécurité applicative, je reste à votre disposition pour toute question ou opportunité.
           </p>
@@ -198,9 +112,9 @@ function Contact() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
-            <Field label="Email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-            <Field label="Objet" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} />
-            <Field label="Message" textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
+            <ContactField label="Email" type="email" value={form.email} onChange={updateField("email")} />
+            <ContactField label="Objet" value={form.subject} onChange={updateField("subject")} />
+            <ContactField label="Message" textarea value={form.message} onChange={updateField("message")} />
 
             {error ? (
               <p className="text-sm text-red-700 bg-red-100 border border-red-200 rounded-lg px-3 py-2">
