@@ -67,7 +67,7 @@ function Contact() {
   ];
 
   return (
-    <section id="contact" className="px-6 md:px-20 pt-12 pb-20">
+    <section id="contact" className="px-6 md:px-20 pt-8 pb-20 scroll-mt-16">
       <div className="mb-8 text-center">
         <h2 className="font-khand text-4xl font-normal text-brown mb-2">Contact</h2>
         <p className="text-brown/70">Un projet, une question ou une opportunité ? Contactez-moi.</p>
