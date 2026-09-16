@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 import dockerIcon from "../assets/stack/docker.png";
 import fastapiIcon from "../assets/stack/fastapi.png";
@@ -45,7 +46,7 @@ const projects = [
   {
     name: "HEI Admin API",
     description: "Contribution backend en équipe sur une API de gestion d'école : frais scolaires, notifications de paiement et mise à jour automatisée du statut étudiant.",
-    stack: ["Java", "Spring Boot", "Scheduler (cron job)", "API RESTful (OpenAPI 3)"],
+    stack: ["Java", "Spring Boot", "Scheduler", "API RESTful"],
     image: heiImage,
     type: "git",
     url: "https://github.com/hei-school/hei-admin-api/commits/preprod/?author=mirado447",
@@ -54,13 +55,18 @@ const projects = [
 ];
 
 function ProjectCard({ project }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className={`group relative rounded-2xl overflow-hidden h-full min-h-[180px] ${project.size === "small" ? "bg-tan" : "bg-tan/20"}`}>
+    <div
+      className={`group relative rounded-2xl overflow-hidden h-full min-h-[260px] sm:min-h-[180px] ${project.size === "small" ? "bg-tan" : "bg-tan/20"}`}
+      onClick={() => setIsOpen((prev) => !prev)}
+    >
       {project.image ? (
         <img
           src={project.image}
           alt={project.name}
-          className={`w-full h-full object-contain bg-tan`}
+          className="w-full h-full object-contain bg-tan"
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center text-brown/40 text-sm">
@@ -68,25 +74,22 @@ function ProjectCard({ project }) {
         </div>
       )}
 
-      {/* nom toujours visible */}
       <span className="absolute bottom-3 left-3 text-brown text-sm font-semibold tracking-wide bg-cream/95 px-5 py-2.5 rounded-lg">
         {project.name}
       </span>
 
-      {/* quart de cercle qui grossit depuis le coin bas-gauche */}
       <div
-        className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-paper text-center
-                   transition-[clip-path] duration-500 ease-out
-                   [clip-path:circle(0%_at_0%_100%)]
-                   group-hover:[clip-path:circle(150%_at_0%_100%)]"
+        className={`absolute inset-0 flex flex-col items-center justify-center p-4 md:p-6 bg-paper text-center transition-[clip-path] duration-500 ease-out ${
+          isOpen ? "[clip-path:circle(150%_at_0%_100%)]" : "[clip-path:circle(0%_at_0%_100%)]"
+        } md:[clip-path:circle(0%_at_0%_100%)] md:group-hover:[clip-path:circle(150%_at_0%_100%)]`}
       >
-        <p className="text-brown font-medium mb-2">{project.name}</p>
-        <p className="w-full max-w-xl text-brown/80 text-sm mb-4">{project.description}</p>
-        <div className="flex flex-wrap justify-center gap-2 mb-5">
+        <p className="text-brown font-medium mb-2 text-sm md:text-base">{project.name}</p>
+        <p className="w-full max-w-xl text-brown/80 text-[11px] md:text-sm mb-3 md:mb-4 leading-relaxed line-clamp-4 md:line-clamp-none">{project.description}</p>
+        <div className="flex flex-wrap justify-center gap-1.5 md:gap-2 mb-3 md:mb-5">
           {project.stack.map((s) => (
-            <span key={s} className="inline-flex items-center gap-1.5 text-xs bg-brown/10 text-brown px-2 py-1 rounded-lg">
+            <span key={s} className="inline-flex items-center gap-1 text-[10px] md:text-xs bg-brown/10 text-brown px-1.5 md:px-2 py-1 rounded-lg">
               {stackIcons[s] ? (
-                <img src={stackIcons[s]} alt="" className="w-4 h-4 object-contain" />
+                <img src={stackIcons[s]} alt="" className="w-3.5 h-3.5 md:w-4 md:h-4 object-contain" />
               ) : null}
               {s}
             </span>
@@ -96,12 +99,13 @@ function ProjectCard({ project }) {
           href={project.url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 border-2 border-brown text-brown text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-brown hover:text-cream transition"
+          onClick={(e) => e.stopPropagation()}
+          className="inline-flex items-center gap-1.5 border-2 border-brown text-brown text-xs md:text-sm font-medium px-3 md:px-5 py-2 md:py-2.5 rounded-lg hover:bg-brown hover:text-cream transition"
         >
           {project.type === "deployed" ? (
-            <><ExternalLink size={14} /> Voir le site</>
+            <><ExternalLink size={12} className="md:w-[14px] md:h-[14px]" /> Voir le site</>
           ) : (
-            <><img src={githubIcon} alt="" className="w-5 h-5 object-contain" /> Voir sur GitHub</>
+            <><img src={githubIcon} alt="" className="w-4 h-4 md:w-5 md:h-5 object-contain" /> Voir sur GitHub</>
           )}
         </a>
       </div>
